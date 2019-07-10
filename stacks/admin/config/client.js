@@ -1,5 +1,7 @@
 import 'dotenv/config'
 
+import graphConfig from './graph'
+
 export default {
     globalName: 'mesionadmin',
 
@@ -34,6 +36,16 @@ export default {
     ],
 
     modules: [
-        '@nuxtjs/axios'
+        '@nuxtjs/axios',
+        '@nuxtjs/apollo'
     ],
+
+    apollo: {
+        clientConfigs: {
+            default: {
+                httpEndpoint: graphConfig.graphurl
+            }
+
+        }
+    }
 }

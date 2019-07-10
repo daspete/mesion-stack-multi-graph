@@ -4,6 +4,8 @@ scalar Date
 extend type Query {
     Collections(
         locale: [String]
+        limit: Int
+        skip: Int
     ): [Collection]
 }
 
@@ -13,6 +15,7 @@ type LocaleContent {
 }
 
 type Collection {
+    _id: ID
     title: [LocaleContent]
     content: [LocaleContent]
     createdAt: Date
@@ -22,8 +25,8 @@ type Collection {
 
 export const resolvers = {
     Query: {
-        async Collections(root, { locale = false }, { CollectionModel }){
-            let collections = await CollectionModel.find({}).populate('createdBy')
+        async Collections(root, { locale = false, limit = 50, skip = 0 }, { CollectionModel }){
+            let collections = await CollectionModel.find({}).skip(skip).limit(limit).populate('createdBy')
 
             collections.map((collection) => {
                 collection.title = collection.title.filter((title) => {

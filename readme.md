@@ -36,17 +36,26 @@ When it's loaded alrighty, you should get some results after you run a query lik
 
 ```
 query {
-  Collections(locale: ["de", "en"]) {
-    title {
-      locale
-      content
+    Collections(
+        locale: ["de"]
+        limit: 50
+        skip: 0
+    ){
+        title {
+            locale
+            content
+        }
+        content {
+            locale
+            content
+        }
+        createdBy {
+            personal {
+                firstname
+                lastname
+            }
+        }
+        createdAt
     }
-    createdBy {
-      personal {
-        firstname
-      }
-    }
-    createdAt
-  }
 }
 ```
