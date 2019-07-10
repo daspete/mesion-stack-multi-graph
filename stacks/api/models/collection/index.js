@@ -2,8 +2,6 @@ import mongoose from 'mongoose'
 import mongooseDelete from 'mongoose-delete'
 import mongooseAutopopulate from 'mongoose-autopopulate'
 
-import { composeWithMongoose } from 'graphql-compose-mongoose'
-import { schemaComposer } from 'graphql-compose'
 
 
 const LocaleDataSchema = new mongoose.Schema({
@@ -26,6 +24,11 @@ const DataSchema = new mongoose.Schema({
         type: [LocaleDataSchema],
         default: []
     },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        default: null
+    }
 }, {
     collection: 'collections',
     timestamps: true

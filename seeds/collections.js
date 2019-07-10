@@ -1,10 +1,14 @@
 import faker from 'faker'
 
 import CollectionModel from '~~stacks/api/models/collection'
+import UserModel from '~~stacks/api/models/user'
 
 
 export default async () => {
-    let fakes = 8000
+    let fakes = 3000
+
+    let user = await UserModel.findOne({})
+
 
     for(let i = 0; i < fakes; i++){
         let data = {
@@ -35,17 +39,13 @@ export default async () => {
                     locale: 'fr',
                     content: 'FR ' + faker.lorem.paragraphs(2)
                 }
-            ]
+            ],
+            createdBy: user._id
         }
 
         let collection = await new CollectionModel(data).save()
-        console.log('collection created:', collection)
+
     }
 
-    // for (let i = 0; i < users.length; i++) {
-    //     let userData = users[i]
-    //     userData.password = await HashPassword(userData.password)
-    //     let user = await new UserModel(userData).save()
-    //     console.log('new user created: ', user)
-    // }
+    console.log(`${ fakes } collections created`)
 }

@@ -12,7 +12,7 @@ if(typeof process.env.BACKPACK_ENV !== 'undefined'){
             entry.input = `core/tools/seeder/index.js`,
             entry.output = 'build/tools/seeder'
         break
-    }    
+    }
 }else{
     let stack = 'api'
     if(typeof process.argv[2] !== 'undefined'){ stack = process.argv[2].toLowerCase() }
@@ -36,6 +36,12 @@ module.exports = {
         config.resolve = {
             alias: aliases
         }
+
+        config.module.rules.push({
+            test: /\.(graphql|gql)$/,
+            exclude: /node_modules/,
+            loader: 'graphql-tag/loader'
+        })
 
         return config
     }
